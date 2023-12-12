@@ -11,6 +11,6 @@ class Settings(BaseSettings):
     algorithm:str
     token_time:int
     class Config: 
-        env_file = "AppAlch\.env"
+        env_file = "/etc/secrets/enviroment"
 settings= Settings()
 
