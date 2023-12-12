@@ -12,7 +12,7 @@ class AlchemySubstances(Base):
     molar_mass= Column(Float, nullable=False)
     cas = Column(String, nullable=False)
     sga_classified=Column(Boolean, nullable=False, server_default='TRUE')
-    hazardous_reactions=Column(Boolean, nullable=True)
+    hazardous_reactions=Column(String, nullable=True)
     created_at=Column(TIMESTAMP(timezone=True), nullable=False, server_default=text("now()"))
     owner_id = Column(Integer,ForeignKey("users.id",ondelete="CASCADE"),nullable="False")
     owner=relationship("AlchemyUsers")
