@@ -1,0 +1,4 @@
+1. FastAPI instead of Django or flask, because it is design to build APIs.
+2. Autodocumentation functionality
+3. PostgreSQL: I like it.
+
