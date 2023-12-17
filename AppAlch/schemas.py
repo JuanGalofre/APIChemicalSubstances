@@ -29,7 +29,7 @@ class Substance(BaseModel):
     molar_mass: float
     cas: str
     sga_classified: bool = True 
-    hazardous_reactions: Optional[str] = None
+    hazardous_reactions: str
 
 class ReturningSubstance(BaseModel):
     id: int
@@ -38,6 +38,7 @@ class ReturningSubstance(BaseModel):
     molar_mass: float
     cas: str
     sga_classified: bool = True 
+    hazardous_reactions: str
     created_at: datetime
     owner_id:int 
     owner: ReturnUser
