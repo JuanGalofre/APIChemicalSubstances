@@ -63,6 +63,7 @@ def get_substances(db: Session =Depends(get_db),
 
 @router.post("/", status_code=status.HTTP_201_CREATED,response_model=ReturningSubstance)
 def create_substances(substance: Substance, db: Session =Depends(get_db),current_user: int = Depends(tokenAuthentication.get_current_user)):
+    print(substance)
     new_substance=models.AlchemySubstances(owner_id=current_user.id,**substance.model_dump())
     db.add(new_substance)
     db.commit()
