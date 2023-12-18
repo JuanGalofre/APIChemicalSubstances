@@ -1,7 +1,11 @@
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 #Powered by pydantic
+
+
+
+
 
 
 class User(BaseModel):
@@ -45,6 +49,26 @@ class ReturningSubstance(BaseModel):
     class Config:
         from_attributes = True
 
+#Massives
+
+class MassiveSubstance(BaseModel):
+    massive: List[Substance]
+
+class ReturningMassiveSubstances(BaseModel):
+    massive: List[ReturningSubstance]
+    class Config:
+        from_attributes = True
+
+class SubstanceToModify(Substance):
+    id_to_modify:int
+    class Config:
+        from_attributes = True
+
+class MassiveSubstancesToModify(BaseModel):
+    massive: List[SubstanceToModify]
+
+
+#Votes
 class Vote(BaseModel):
     substance_id: int
     direction: bool
