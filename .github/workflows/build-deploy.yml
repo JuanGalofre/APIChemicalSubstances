@@ -4,7 +4,7 @@ on:
         branches: ["main"]
 jobs:
     job1:
-        enviroment: env
+        environment: env
         env:
           DBHOSTNAME:${{secrets.DBHOSTNAME}}
           db_port:${{secrets.DB_PORT}}
