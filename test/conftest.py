@@ -12,7 +12,7 @@ from jose import jwt, JWTError
 import pytest
 import os 
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{os.getenv('DBUSERNAME')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DBHOSTNAME')}/{os.getenv('DBNAME')}_test"
+SQLALCHEMY_DATABASE_URL=f"postgresql://{settings.DBUSERNAME}:{settings.db_password}@{settings.DBHOSTNAME}/{settings.DBNAME}"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestSession = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
