@@ -48,7 +48,7 @@ jobs:
   deploy:
    name: Deploy
    needs: [test]
-   runs_on: ubuntu-latest
+   runs-on: ubuntu-latest
    steps:
      - name: Deploy to production
        uses: johnbeynon/render-deploy-action@v0.0.8
