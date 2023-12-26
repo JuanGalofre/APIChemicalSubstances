@@ -51,8 +51,8 @@ jobs:
    runs-on: ubuntu-latest
    steps:
      - name: Deploy to production
-       uses: sws2apps/render-deployment@main
-       with:
-         serviceId: ${{ secrets.RENDER_SERVICE_ID }}
-         apiKey: ${{ secrets.RENDER_API_KEY }}
-         multipleDeployment: false
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true
