@@ -48,6 +48,7 @@ jobs:
  deploy:
    name: Deploy
    needs: [test]
+   enviroment: env
    runs-on: ubuntu-latest
    steps:
      - name: Deploy to production
