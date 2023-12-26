@@ -1,0 +1,12 @@
+name: Build and deploy code
+on:
+    push:
+        branches: ["main"]
+jobs:
+    job1:
+        runs-on: ubuntu-latest
+        steps:
+            - name: pulling repository
+              uses: actions/checkout@v4
+            - name: say hi ?
+              uses: echo "Hello there"
