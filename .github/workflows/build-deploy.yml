@@ -42,7 +42,7 @@ jobs:
            - name: Add parent directory to PYTHONPATH
              run: echo "export PYTHONPATH=$PYTHONPATH:/home/runner/work/APIChemicalSubstances/APIChemicalSubstances" >> $GITHUB_ENV
            - name: postgres delay 
-           - run: sleep 10
+             run: sleep 10
            - name: install pytest
              run: python -m pip install pytest
            - name: run pytest
