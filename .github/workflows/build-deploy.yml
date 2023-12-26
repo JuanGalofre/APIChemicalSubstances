@@ -16,7 +16,7 @@ jobs:
           token_time:${{secrets.TOKEN_TIME}}
         services:
          postgres:
-          image:postgres
+          image: postgres
           env:
             POSTGRES_PASSWORD: ${{secrets.DB_PASSWORD}}
             POSTGRES_DB: ${{secrets.DB_PASSWORD}}_test
