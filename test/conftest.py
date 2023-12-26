@@ -10,9 +10,9 @@ from ..AppAlch.database import get_db, Base
 from ..AppAlch.tokenAuthentication import create_access_token
 from jose import jwt, JWTError
 import pytest
+import os 
 
-#SQLALCHEMY_DATABASE_URL=f"postgresql://{settings.DBUSERNAME}:{settings.db_password}@{settings.DBHOSTNAME}/{settings.db_name}"
-SQLALCHEMY_DATABASE_URL="postgresql://postgres:12345@localhost:5432/substances_test"
+SQLALCHEMY_DATABASE_URL = f"postgresql://{os.getenv('DBUSERNAME')}:{os.getenv('DBPASSWORD')}@{os.getenv('DBHOSTNAME')}/{os.getenv('DBNAME')}_test"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 TestSession = sessionmaker(autoflush=False, autocommit=False, bind=engine)
 
