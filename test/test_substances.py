@@ -1,5 +1,5 @@
 from typing import List
-from AppAlch import schemas
+from ..AppAlch import schemas
 import pytest
 
 def deauthorize_client(client):

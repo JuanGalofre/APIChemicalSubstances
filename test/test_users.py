@@ -1,8 +1,8 @@
 from fastapi.testclient import TestClient
-from AppAlch.main import app
-from AppAlch import models
-from AppAlch.schemas import ReturnUser, AccessToken
-from AppAlch.config import settings
+from ..AppAlch.main import app
+from ..AppAlch import models
+from ..AppAlch.schemas import ReturnUser, AccessToken
+from ..AppAlch.config import settings
 from jose import jwt, JWTError
 from .conftest import get_user_id
 import pytest
