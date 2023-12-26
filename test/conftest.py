@@ -1,13 +1,13 @@
 from fastapi.testclient import TestClient
-from AppAlch.main import app
-from AppAlch import models
-from AppAlch.schemas import ReturnUser, AccessToken
+from ..AppAlch.main import app
+from ..AppAlch import models
+from ..AppAlch.schemas import ReturnUser, AccessToken
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker
-from AppAlch.config import settings
-from AppAlch.database import get_db, Base
-from AppAlch.tokenAuthentication import create_access_token
+from ..AppAlch.config import settings
+from ..AppAlch.database import get_db, Base
+from ..AppAlch.tokenAuthentication import create_access_token
 from jose import jwt, JWTError
 import pytest
 
