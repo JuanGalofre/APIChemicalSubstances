@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     db_port: str
     DBUSERNAME: str
     db_password: str
-    db_name: str
+    DBNAME: str
     skey: str
     algorithm:str
     token_time:int
