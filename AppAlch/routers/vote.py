@@ -4,6 +4,8 @@ from ..tokenAuthentication import get_current_user
 from ..database import get_db
 from .. import schemas
 from .. import models
+
+
 router = APIRouter( prefix="/vote",tags=['Votes'])
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

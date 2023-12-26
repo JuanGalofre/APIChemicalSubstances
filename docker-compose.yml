@@ -1,0 +1,24 @@
+version: "3"
+services:
+  api:
+    build: .
+    ports:
+      - "5432:5432"
+    environment:
+      - DBHOSTNAME=postgres
+      - db_port=5432
+      - DBUSERNAME=postgres
+      - db_password=password123
+      - db_name=Substances
+      - skey=1t9a0ix0gzTCeLTe7rf4lEtP4NPxQber9DJrI87qqOo
+      - algorithm=HS256
+      - token_time=30
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=Substances
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+volumes:
+  postgres-db:

@@ -22,11 +22,12 @@ router = APIRouter( prefix="/substances",tags=['Substances'])
 def get_substances(db: Session =Depends(get_db), 
                    molecularFormula:str = None,
                    limit:int = 10,
-                   search: Optional[str] =""):
+                   search: Optional[str] ="",
+                   current_user: int = Depends(tokenAuthentication.get_current_user)):
     if molecularFormula:
         substances= (
-            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("funk_votes"))
-            .join(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
+            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("votes"))
+            .outerjoin(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
             .options(subqueryload(models.AlchemySubstances.owner)) 
             .group_by(models.AlchemySubstances.id)
             .filter(models.AlchemySubstances.molecular_formula==molecularFormula)
@@ -36,8 +37,8 @@ def get_substances(db: Session =Depends(get_db),
     else:
         if search:
             substances= (
-            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("funk_votes"))
-            .join(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
+            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("votes"))
+            .outerjoin(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
             .options(subqueryload(models.AlchemySubstances.owner)) 
             .group_by(models.AlchemySubstances.id)
             .filter(models.AlchemySubstances.name.contains(search))
@@ -47,19 +48,16 @@ def get_substances(db: Session =Depends(get_db),
 
         else:
             substances= (
-            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("funk_votes"))
-            .join(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
+            db.query(models.AlchemySubstances,funk.count(models.AlchemySubstances.id).label("votes"))
+            .outerjoin(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
             .options(subqueryload(models.AlchemySubstances.owner)) 
             .group_by(models.AlchemySubstances.id)
             .all()
             )
-
-
     return substances
 
 @router.post("/", status_code=status.HTTP_201_CREATED,response_model=ReturningSubstance)
 def create_substances(substance: Substance, db: Session =Depends(get_db),current_user: int = Depends(tokenAuthentication.get_current_user)):
-    print(substance)
     new_substance=models.AlchemySubstances(owner_id=current_user.id,**substance.model_dump())
     db.add(new_substance)
     db.commit()
@@ -81,10 +79,10 @@ def create_batch_substances(substances:MassiveSubstance , db: Session =Depends(g
 
 
 @router.get("/{id}", response_model=ReturningSubstanceVotes)
-def get_substance(id:int, db:Session = Depends(get_db)):
+def get_substance(id:int, db:Session = Depends(get_db),current_user: int = Depends(tokenAuthentication.get_current_user)):
     substance= (
-            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("funk_votes"))
-            .join(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
+            db.query(models.AlchemySubstances, funk.count(models.AlchemySubstances.id).label("votes"))
+            .outerjoin(models.AlchemyVotes, models.AlchemySubstances.id == models.AlchemyVotes.substance_id)
             .options(subqueryload(models.AlchemySubstances.owner)) 
             .group_by(models.AlchemySubstances.id)
             .filter(models.AlchemySubstances.id == id)
@@ -125,16 +123,13 @@ def update_batch_substance(substances: MassiveSubstancesToModify ,db:Session=Dep
     return {"massive":mod_substances}
 
 
-
-
-
-@router.put("/{id}",response_model=ReturningSubstance)
-def update_substance(id:int, substance: Substance, db:Session=Depends(get_db),current_user: int = Depends(tokenAuthentication.get_current_user)):
-    substance_query = db.query(models.AlchemySubstances).filter(models.AlchemySubstances.id == id)
+@router.put("/{numero}",response_model=ReturningSubstance)
+def update_substance(numero:int, substance: Substance, db:Session=Depends(get_db),current_user: int = Depends(tokenAuthentication.get_current_user)):
+    substance_query = db.query(models.AlchemySubstances).filter(models.AlchemySubstances.id == numero)
     substance_obtained= substance_query.first()
     if not substance_obtained:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Substance with id: {id} was not found")
-    if substance_obtained.owner_id != current_user.id():
+    if substance_obtained.owner_id != current_user.id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Not authorized action")
     substance_query.update(substance.model_dump())
     db.commit()

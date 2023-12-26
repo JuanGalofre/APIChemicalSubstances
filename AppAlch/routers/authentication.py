@@ -14,7 +14,7 @@ def login( user_credentials :OAuth2PasswordRequestForm = Depends(), db: Session 
     userquery= db.query(models.AlchemyUsers).filter(models.AlchemyUsers.email == user_credentials.username)
     user = userquery.first()
     if not user:
-        raise HTTPException( status_code=status.HTTP_403_FORBIDDEN ,detail=f"User with email:{user_credentials.username} was not found")
+        raise HTTPException( status_code=status.HTTP_403_FORBIDDEN ,detail=f"Invalid credentials")
 
     if not hashing.verifyPassword(user_credentials.password,user.password):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail=f"Invalid credentials")

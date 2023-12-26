@@ -20,12 +20,21 @@ class Login(BaseModel):
     email: EmailStr
     password:str
 
+
+
+
+#Tokens
 class AccessToken(BaseModel):
     access_token: str
     token_type: str
 
 class TokenData(BaseModel):
     id: str
+
+
+
+
+
 
 class Substance(BaseModel):
     name: str
@@ -75,6 +84,6 @@ class Vote(BaseModel):
 
 class ReturningSubstanceVotes(BaseModel):
     AlchemySubstances: ReturningSubstance
-    funk_votes: int
+    votes: int
     class Config:
         from_attributes = True

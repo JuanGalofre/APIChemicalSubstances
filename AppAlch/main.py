@@ -17,9 +17,14 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"]
 )
+
 app.include_router(substances.router)
 app.include_router(users.router)
 app.include_router(authentication.router)
 app.include_router(vote.router)
+
+@app.get("/")
+def default_function():
+    return {"message":"hello there"}
 
 
