@@ -5,7 +5,7 @@ from .config import settings
 
 
 
-SQLALCHEMY_DATABASE_URL=f"postgresql://{settings.DBUSERNAME}:{settings.db_password}@{settings.DBHOSTNAME}/{settings.DBNAME}"
+SQLALCHEMY_DATABASE_URL=f"postgresql://{settings.DBUSERNAME}:{settings.db_password}@{settings.DBHOSTNAME}/{settings.DBNAME}_test"
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 sessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
