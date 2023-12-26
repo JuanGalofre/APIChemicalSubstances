@@ -9,8 +9,8 @@ jobs:
         DBHOSTNAME: ${{ secrets.DBHOSTNAME }}
         db_port: ${{ secrets.DB_PORT }}
         DBUSERNAME: ${{ secrets.DBUSERNAME }}
-        db_password: ${{ secrets.DB_PASSWORD }}
-        db_name: ${{ secrets.DB_NAME }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        DBNAME: ${{ secrets.DB_NAME }}
         skey: ${{ secrets.SKEY }}
         algorithm: ${{ secrets.ALGORITHM }}
         token_time: ${{ secrets.TOKEN_TIME }}
