@@ -8,5 +8,5 @@ jobs:
         steps:
             - name: pulling repository
               uses: actions/checkout@v4
-            - name: say hi ?
-              uses: echo "Hello there"
+            - name: say hi 
+              run: echo "Hello there"
